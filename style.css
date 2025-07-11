@@ -37,6 +37,17 @@ button:hover {
   background: #17a2b8;
 }
 
+.back-btn {
+  margin-top: 20px;
+  padding: 8px 20px;
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
 #result {
   margin-top: 20px;
   font-weight: bold;
