@@ -98,11 +98,16 @@ function startQuiz(ageGroup) {
 
 function initFindDifferences() {
   const image = document.getElementById('diff-image');
+
+  // Οι δικές σου συντεταγμένες:
   const differences = [
-    {x: 150, y: 200},
-    {x: 250, y: 300},
-    // ... πρόσθεσε σωστές συντεταγμένες!
+    { x: -43, y: -39 },   // 1
+    { x:  51, y: -28 },   // 2
+    { x:  46, y: -150 },  // 3
+    { x: -25, y: -116 },  // 4
+    { x:  90, y: -86 }    // 5
   ];
+
   const radius = 30;
   const found = [];
 
@@ -114,7 +119,7 @@ function initFindDifferences() {
     differences.forEach(diff => {
       const dx = clickX - diff.x;
       const dy = clickY - diff.y;
-      if (Math.sqrt(dx*dx + dy*dy) < radius && !found.includes(diff)) {
+      if (Math.sqrt(dx * dx + dy * dy) < radius && !found.includes(diff)) {
         found.push(diff);
         alert('Μπράβο! Βρήκες μια διαφορά!');
         if (found.length === differences.length) {
@@ -124,6 +129,7 @@ function initFindDifferences() {
     });
   });
 }
+
 
 function showQuestion() {
   const q = currentQuiz[currentQuestion];
@@ -153,9 +159,11 @@ function selectAnswer(idx) {
 }
 
 document.getElementById('submitBtn').onclick = () => {
-  if (selected === null) {
-    alert("Επίλεξε μια απάντηση!");
-    return;
+ if (selected === null) {
+  document.getElementById('result').innerText = "⚠️ Επίλεξε μια απάντηση!";
+  return;
+}
+
   }
   const correct = currentQuiz[currentQuestion].correct;
   if (selected === correct) {
