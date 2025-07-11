@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Κουίζ Ηλικιών</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Αρχική επιλογή ηλικίας -->
+    <div id="age-select">
+      <h1>Πόσων ετών είσαι;</h1>
+      <button onclick="startQuiz('5-7')">5 – 7</button>
+      <button onclick="startQuiz('7-11')">7 – 11</button>
+      <button onclick="startQuiz('11-16')">11 – 16</button>
+      <button onclick="startQuiz('16+')">16+</button>
+    </div>
+
+    <!-- Κουίζ -->
+    <div id="quiz" style="display:none;">
+      <div id="timer">Χρόνος: 0 δευτ.</div>
+      <h2 id="question"></h2>
+      <div id="answers"></div>
+      <button id="submitBtn">Απάντησε</button>
+      <div id="result"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
