@@ -1,9 +1,9 @@
 const quizzes = {
   '7-11': [
     {
-      "question": "Ποιο είναι το πιο μεγάλο ζώο;",
-      "answers": ['Αράχνη', 'Γάτα', 'Πουλί', 'Φάλαινα'],
-      "correct": 3
+      question: "Ποιο είναι το πιο μεγάλο ζώο;",
+      answers: ['Αράχνη', 'Γάτα', 'Πουλί', 'Φάλαινα'],
+      correct: 3
     },
     {
       question: "Ποια είναι πόλη της Γαλλίας;",
@@ -72,15 +72,36 @@ const quizzes = {
   ]
 };
 
+let currentQuiz = [];
+let currentQuestion = 0;
+let score = 0;
+let startTime;
+let timerInterval;
 
+function startQuiz(ageGroup) {
+  if (ageGroup === '5-7') {
+    document.getElementById('age-select').style.display = 'none';
+    document.getElementById('find-differences').style.display = 'block';
+    initFindDifferences();
+    return;
+  }
 
+  currentQuiz = quizzes[ageGroup];
+  currentQuestion = 0;
+  score = 0;
+  startTime = Date.now();
+  document.getElementById('age-select').style.display = 'none';
+  document.getElementById('quiz').style.display = 'block';
+  showQuestion();
+  timerInterval = setInterval(updateTimer, 1000);
+}
 
 function initFindDifferences() {
   const image = document.getElementById('diff-image');
   const differences = [
-    {x: 150, y: 200}, // παράδειγμα, βάλε σωστά!
+    {x: 150, y: 200},
     {x: 250, y: 300},
-    // ...
+    // ... πρόσθεσε σωστές συντεταγμένες!
   ];
   const radius = 30;
   const found = [];
@@ -103,32 +124,6 @@ function initFindDifferences() {
     });
   });
 }
-
-let currentQuiz = [];
-let currentQuestion = 0;
-let score = 0;
-let startTime;
-let timerInterval;
-
-function startQuiz(ageGroup) {
-  if (ageGroup === '5-7') {
-    document.getElementById('age-select').style.display = 'none';
-    document.getElementById('find-differences').style.display = 'block';
-    initFindDifferences();
-    return;
-  }
-
-
-  currentQuiz = quizzes[ageGroup];
-  currentQuestion = 0;
-  score = 0;
-  startTime = Date.now();
-  document.getElementById('age-select').style.display = 'none';
-  document.getElementById('quiz').style.display = 'block';
-  showQuestion();
-  timerInterval = setInterval(updateTimer, 1000);
-}
-
 
 function showQuestion() {
   const q = currentQuiz[currentQuestion];
@@ -167,7 +162,8 @@ document.getElementById('submitBtn').onclick = () => {
     document.getElementById('result').innerText = "Σωστό!";
     score++;
   } else {
-    document.getElementById('result').innerText = `Λάθος! Σωστό: ${currentQuiz[currentQuestion].answers[correct]}`;
+    document.getElementById('result').innerText =
+      `Λάθος! Σωστό: ${currentQuiz[currentQuestion].answers[correct]}`;
   }
 
   selected = null;
@@ -178,7 +174,8 @@ document.getElementById('submitBtn').onclick = () => {
   } else {
     clearInterval(timerInterval);
     const timeTaken = Math.floor((Date.now() - startTime) / 1000);
-    document.getElementById('quiz').innerHTML = `<h2>Τέλος! Σωστές: ${score}/${currentQuiz.length}</h2><p>Χρόνος: ${timeTaken} δευτ.</p>`;
+    document.getElementById('quiz').innerHTML =
+      `<h2>Τέλος! Σωστές: ${score}/${currentQuiz.length}</h2><p>Χρόνος: ${timeTaken} δευτ.</p>`;
   }
 };
 
