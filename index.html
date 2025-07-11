@@ -8,14 +8,17 @@
 </head>
 <body>
   <div class="container">
+
     <!-- Βρες τις Διαφορές -->
-<div id="find-differences" style="display:none;">
-  <h2>Βρες τις Διαφορές!(Ηλικίες 5-7)</h2>
-  <p>Πάτα στα σημεία που βλέπεις διαφορές 👇</p>
-  <img src="deer_diff.gif" alt="Find the differences" id="diff-image" style="width:100%; max-width:600px;">
-  <div id="found-msg"></div>
-  <button onclick="goBack()" class="back-btn">🔙 Επιστροφή</button>
-</div>
+    <div id="find-differences" style="display:none;">
+      <h2>Βρες τις Διαφορές! (Ηλικίες 5-7)</h2>
+      <p>Πάτα στα σημεία που βλέπεις διαφορές 👇</p>
+      <img src="deer_diff.gif" alt="Find the differences" id="diff-image" style="width:100%; max-width:600px;">
+      <div id="found-msg"></div>
+      <!-- 🔙 Κουμπί Επιστροφής -->
+      <button onclick="goBack()" class="back-btn">🔙 Επιστροφή</button>
+    </div>
+
     <!-- Αρχική επιλογή ηλικίας -->
     <div id="age-select">
       <h1>Αυτό είναι ένα κουίζ! 🎉<br/>Επίλεξε την ηλικία σου:</h1>
@@ -25,14 +28,17 @@
       <button onclick="startQuiz('16+')">16+</button>
     </div>
 
-    <!-- Κουίζ -->
+    <!-- Κανονικό Κουίζ -->
     <div id="quiz" style="display:none;">
+      <!-- 🔙 Κουμπί Επιστροφής -->
+      <button onclick="goBack()" class="back-btn">🔙 Επιστροφή</button>
       <div id="timer">Χρόνος: 0 δευτ.</div>
       <h2 id="question"></h2>
       <div id="answers"></div>
       <button id="submitBtn">Απάντησε</button>
       <div id="result"></div>
     </div>
+
   </div>
 
   <script src="script.js"></script>
