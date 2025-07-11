@@ -108,7 +108,7 @@ function initFindDifferences() {
     { x:  90, y: -86 }    // 5
   ];
 
-  const radius = 30;
+  const radius = 70;
   const found = [];
 
   image.addEventListener('click', (e) => {
@@ -160,7 +160,7 @@ function selectAnswer(idx) {
 
 document.getElementById('submitBtn').onclick = () => {
  if (selected === null) {
-  document.getElementById('result').innerText = "⚠️ Επίλεξε μια απάντηση!";
+  document.getElementById('result').innerText = "Επίλεξε μια απάντηση!";
   return;
 }
 
