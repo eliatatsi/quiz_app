@@ -1,3 +1,7 @@
+// -----------------------------
+// ΕΡΩΤΗΣΕΙΣ
+// -----------------------------
+
 const quizzes = {
   '7-11': [
     {
@@ -66,17 +70,26 @@ const quizzes = {
     },
     {
       question: "Ποιος πλανήτης είναι πιο κοντά στον ήλιο;",
-      answers: ['ΓΗ', 'Δίας', 'Σελήνη', 'Ερμής'],
+      answers: ['Γη', 'Δίας', 'Σελήνη', 'Ερμής'],
       correct: 3
     }
   ]
 };
+
+// -----------------------------
+// ΒΑΣΙΚΕΣ ΜΕΤΑΒΛΗΤΕΣ
+// -----------------------------
 
 let currentQuiz = [];
 let currentQuestion = 0;
 let score = 0;
 let startTime;
 let timerInterval;
+let selected = null;
+
+// -----------------------------
+// ΕΝΑΡΞΗ QUIZ
+// -----------------------------
 
 function startQuiz(ageGroup) {
   if (ageGroup === '5-7') {
@@ -89,6 +102,7 @@ function startQuiz(ageGroup) {
   currentQuiz = quizzes[ageGroup];
   currentQuestion = 0;
   score = 0;
+  selected = null;
   startTime = Date.now();
   document.getElementById('age-select').style.display = 'none';
   document.getElementById('quiz').style.display = 'block';
@@ -96,25 +110,28 @@ function startQuiz(ageGroup) {
   timerInterval = setInterval(updateTimer, 1000);
 }
 
+// -----------------------------
+// FIND THE DIFFERENCES GAME
+// -----------------------------
+
 function initFindDifferences() {
   const image = document.getElementById('diff-image');
 
-  // Οι δικές σου συντεταγμένες:
   const differences = [
-    { x: -43, y: -39 },   // 1
-    { x:  51, y: -28 },   // 2
-    { x:  46, y: -150 },  // 3
-    { x: -25, y: -116 },  // 4
-    { x:  90, y: -86 }    // 5
+    { x: -43, y: -39 },
+    { x: 51, y: -28 },
+    { x: 46, y: -150 },
+    { x: -25, y: -116 },
+    { x: 90, y: -86 }
   ];
 
-  const radius = 70;
+  const radius = 70; // μεγαλύτερο radius για ευκολία
   const found = [];
 
   image.addEventListener('click', (e) => {
     const rect = image.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const clickY = e.clientY - rect.top;
+    const clickX = e.clientX - rect.left - rect.width / 2;
+    const clickY = e.clientY - rect.top - rect.height / 2;
 
     differences.forEach(diff => {
       const dx = clickX - diff.x;
@@ -130,6 +147,9 @@ function initFindDifferences() {
   });
 }
 
+// -----------------------------
+// ΕΜΦΑΝΙΣΗ ΕΡΩΤΗΣΗΣ
+// -----------------------------
 
 function showQuestion() {
   const q = currentQuiz[currentQuestion];
@@ -148,7 +168,9 @@ function showQuestion() {
   document.getElementById('result').innerText = '';
 }
 
-let selected = null;
+// -----------------------------
+// ΕΠΙΛΟΓΗ ΑΠΑΝΤΗΣΗΣ
+// -----------------------------
 
 function selectAnswer(idx) {
   selected = idx;
@@ -158,13 +180,16 @@ function selectAnswer(idx) {
   });
 }
 
-document.getElementById('submitBtn').onclick = () => {
- if (selected === null) {
-  document.getElementById('result').innerText = "Επίλεξε μια απάντηση!";
-  return;
-}
+// -----------------------------
+// ΥΠΟΒΟΛΗ ΑΠΑΝΤΗΣΗΣ
+// -----------------------------
 
+document.getElementById('submitBtn').onclick = () => {
+  if (selected === null) {
+    document.getElementById('result').innerText = "⚠️ Επίλεξε μια απάντηση!";
+    return;
   }
+
   const correct = currentQuiz[currentQuestion].correct;
   if (selected === correct) {
     document.getElementById('result').innerText = "Σωστό!";
@@ -186,6 +211,10 @@ document.getElementById('submitBtn').onclick = () => {
       `<h2>Τέλος! Σωστές: ${score}/${currentQuiz.length}</h2><p>Χρόνος: ${timeTaken} δευτ.</p>`;
   }
 };
+
+// -----------------------------
+// ΧΡΟΝΟΜΕΤΡΟ
+// -----------------------------
 
 function updateTimer() {
   const elapsed = Math.floor((Date.now() - startTime) / 1000);
