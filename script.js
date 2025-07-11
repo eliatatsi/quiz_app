@@ -125,7 +125,7 @@ function initFindDifferences() {
     { x: 90, y: -86 }
   ];
 
-  const radius = 70; // μεγαλύτερο radius για ευκολία
+  const radius = 80; 
   const found = [];
 
   image.addEventListener('click', (e) => {
@@ -150,6 +150,13 @@ function initFindDifferences() {
 // -----------------------------
 // ΕΜΦΑΝΙΣΗ ΕΡΩΤΗΣΗΣ
 // -----------------------------
+
+function goBack() {
+  document.getElementById('find-differences').style.display = 'none';
+  document.getElementById('quiz').style.display = 'none';
+  document.getElementById('age-select').style.display = 'block';
+  clearInterval(timerInterval);
+}
 
 function showQuestion() {
   const q = currentQuiz[currentQuestion];
