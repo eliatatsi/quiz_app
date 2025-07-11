@@ -29,6 +29,36 @@ const quizzes = {
   ]
 };
 
+
+function initFindDifferences() {
+  const image = document.getElementById('diff-image');
+  const differences = [
+    {x: 150, y: 200}, // παράδειγμα, βάλε σωστά!
+    {x: 250, y: 300},
+    // ...
+  ];
+  const radius = 30;
+  const found = [];
+
+  image.addEventListener('click', (e) => {
+    const rect = image.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const clickY = e.clientY - rect.top;
+
+    differences.forEach(diff => {
+      const dx = clickX - diff.x;
+      const dy = clickY - diff.y;
+      if (Math.sqrt(dx*dx + dy*dy) < radius && !found.includes(diff)) {
+        found.push(diff);
+        alert('Μπράβο! Βρήκες μια διαφορά!');
+        if (found.length === differences.length) {
+          document.getElementById('found-msg').innerText = "🎉 Μπράβο! Τα βρήκες όλα!";
+        }
+      }
+    });
+  });
+}
+
 let currentQuiz = [];
 let currentQuestion = 0;
 let score = 0;
@@ -36,6 +66,14 @@ let startTime;
 let timerInterval;
 
 function startQuiz(ageGroup) {
+  if (ageGroup === '5-7') {
+    document.getElementById('age-select').style.display = 'none';
+    document.getElementById('find-differences').style.display = 'block';
+    initFindDifferences();
+    return;
+  }
+
+
   currentQuiz = quizzes[ageGroup];
   currentQuestion = 0;
   score = 0;
@@ -45,6 +83,7 @@ function startQuiz(ageGroup) {
   showQuestion();
   timerInterval = setInterval(updateTimer, 1000);
 }
+
 
 function showQuestion() {
   const q = currentQuiz[currentQuestion];
