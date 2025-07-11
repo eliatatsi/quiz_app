@@ -125,7 +125,7 @@ function initFindDifferences() {
     { x: 90, y: -86 }
   ];
 
-  const radius = 80; 
+  const radius = 90; 
   const found = [];
 
   image.addEventListener('click', (e) => {
