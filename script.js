@@ -304,3 +304,9 @@ function updateTimer() {
   const elapsed = Math.floor((Date.now() - startTime) / 1000);
   document.getElementById('timer').innerText = `Χρόνος: ${elapsed} δευτ.`;
 }
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('btn-5-7').addEventListener('click', () => startQuiz('5-7'));
+  document.getElementById('btn-7-11').addEventListener('click', () => startQuiz('7-11'));
+  document.getElementById('btn-11-16').addEventListener('click', () => startQuiz('11-16'));
+  document.getElementById('btn-16plus').addEventListener('click', () => startQuiz('16+'));
+});
