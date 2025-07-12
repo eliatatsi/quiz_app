@@ -157,18 +157,9 @@ const quizzes = {
   ]
 };
 
-
-
-// -----------------------------
-// Ο ΥΠΟΛΟΙΠΟΣ ΚΩΔΙΚΑΣ ΣΟΥ ΠΑΡΑΜΕΝΕΙ ΟΠΩΣ ΕΙΝΑΙ
-// (startQuiz, showQuestion, selectAnswer, χρονομέτρηση κ.λπ.)
-// -----------------------------
-
-
 // -----------------------------
 // ΒΑΣΙΚΕΣ ΜΕΤΑΒΛΗΤΕΣ
 // -----------------------------
-
 let currentQuiz = [];
 let currentQuestion = 0;
 let score = 0;
@@ -179,7 +170,6 @@ let selected = null;
 // -----------------------------
 // ΕΝΑΡΞΗ QUIZ
 // -----------------------------
-
 function startQuiz(ageGroup) {
   if (ageGroup === '5-7') {
     document.getElementById('age-select').style.display = 'none';
@@ -202,7 +192,6 @@ function startQuiz(ageGroup) {
 // -----------------------------
 // FIND THE DIFFERENCES GAME
 // -----------------------------
-
 function initFindDifferences() {
   const image = document.getElementById('diff-image');
 
@@ -239,7 +228,6 @@ function initFindDifferences() {
 // -----------------------------
 // ΕΜΦΑΝΙΣΗ ΕΡΩΤΗΣΗΣ
 // -----------------------------
-
 function goBack() {
   document.getElementById('find-differences').style.display = 'none';
   document.getElementById('quiz').style.display = 'none';
@@ -267,7 +255,6 @@ function showQuestion() {
 // -----------------------------
 // ΕΠΙΛΟΓΗ ΑΠΑΝΤΗΣΗΣ
 // -----------------------------
-
 function selectAnswer(idx) {
   selected = idx;
   const buttons = document.querySelectorAll('#answers button');
@@ -279,7 +266,6 @@ function selectAnswer(idx) {
 // -----------------------------
 // ΥΠΟΒΟΛΗ ΑΠΑΝΤΗΣΗΣ
 // -----------------------------
-
 document.getElementById('submitBtn').onclick = () => {
   if (selected === null) {
     document.getElementById('result').innerText = "⚠️ Επίλεξε μια απάντηση!";
@@ -291,9 +277,9 @@ document.getElementById('submitBtn').onclick = () => {
     document.getElementById('result').innerText = "Σωστό!";
     score++;
   } else {
-   document.getElementById('result').innerText =
-  `Λάθος! Σωστό: ${currentQuiz[currentQuestion].answers[correct]}`;
-
+    document.getElementById('result').innerText =
+      `Λάθος! Σωστό: ${currentQuiz[currentQuestion].answers[correct]}`;
+  }
 
   selected = null;
   currentQuestion++;
@@ -304,17 +290,14 @@ document.getElementById('submitBtn').onclick = () => {
     clearInterval(timerInterval);
     const timeTaken = Math.floor((Date.now() - startTime) / 1000);
     document.getElementById('quiz').innerHTML =
-      <h2>Τέλος! Σωστές: ${score}/${currentQuiz.length}</h2><p>Χρόνος: ${timeTaken} δευτ.</p>;
+      `<h2>Τέλος! Σωστές: ${score}/${currentQuiz.length}</h2><p>Χρόνος: ${timeTaken} δευτ.</p>`;
   }
 };
 
 // -----------------------------
 // ΧΡΟΝΟΜΕΤΡΟ
 // -----------------------------
-
 function updateTimer() {
   const elapsed = Math.floor((Date.now() - startTime) / 1000);
-  document.getElementById('timer').innerText = Χρόνος: ${elapsed} δευτ.;
+  document.getElementById('timer').innerText = `Χρόνος: ${elapsed} δευτ.`;
 }
-
-
