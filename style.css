@@ -38,8 +38,8 @@ button:hover {
 }
 .back-btn {
   display: block;
-  margin: 10px auto;
-  padding: 8px 20px;
+  margin: 20px auto;
+  padding: 10px 20px;
   background: #dc3545;
   color: #fff;
   border: none;
