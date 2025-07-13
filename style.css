@@ -40,9 +40,10 @@ button:hover {
 .back-btn {
   position: fixed;
   top: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 9999;
-  margin: 10px;
+  margin: 10px 0;
   padding: 8px 12px;
   font-size: 18px;
   cursor: pointer;
