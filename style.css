@@ -37,14 +37,16 @@ button:hover {
   background: #17a2b8;
 }
 .back-btn {
-  margin: 10px 0;              /* Top and bottom margin of 10px, no left/right margin */
-  padding: 8px 20px;           /* 8px top/bottom padding, 20px left/right */
-  background: #dc3545;         /* Bootstrap danger red background */
-  color: #fff;                 /* White text color */
-  border: none;                /* No border */
-  border-radius: 5px;          /* Rounded corners */
-  cursor: pointer;             /* Cursor changes to pointer on hover (indicates clickable) */
+  display: block;
+  margin: 10px auto;
+  padding: 8px 20px;
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
+
 
 
 
