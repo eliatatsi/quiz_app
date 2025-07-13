@@ -195,21 +195,18 @@ function startQuiz(ageGroup) {
 // -----------------------------
 // FIND THE DIFFERENCES GAME
 // -----------------------------
-<img id="diff-image" src="deer-two-images.png" onload="initFindDifferences()" />
-<p id="found-msg"></p>
 
-<script>
 function initFindDifferences () {
   const img = document.getElementById('diff-image');
 
   /*  Συντεταγμένες διαφορών ως προς το
       ΠΑΝΩ‑ΑΡΙΣΤΕΡΟ της ΚΑΤΩ εικόνας  */
   const differences = [
-   (-43, -39),   # 1
-    (51, -28),    # 2
-    (46, -150),   # 3
-    (-25, -116),  # 4
-    (90, -86)     # 5    
+   (-43, -39),   
+    (51, -28),    
+    (46, -150),   
+    (-25, -116),  
+    (90, -86)        
   ];
 
   const RADIUS = 25;           // εμβαδό «κλικ επιτυχίας» σε px
@@ -245,7 +242,7 @@ function initFindDifferences () {
     });
   });
 }
-</script>
+
 
 
 // -----------------------------
