@@ -38,14 +38,19 @@ button:hover {
 }
 
 .back-btn {
-  margin-top: 20px;
-  padding: 8px 20px;
-  background: #dc3545;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #fff;
+  color: #333;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 16px;
   cursor: pointer;
+  z-index: 9999;
 }
+
 
 
 #result {
