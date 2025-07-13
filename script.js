@@ -252,11 +252,21 @@ function initFindDifferences () {
 // ΕΜΦΑΝΙΣΗ ΕΡΩΤΗΣΗΣ
 // -----------------------------
 function goBack() {
+  // Κρύβει όλες τις ενότητες που μπορεί να είναι ενεργές
   document.getElementById('find-differences').style.display = 'none';
   document.getElementById('quiz').style.display = 'none';
+  document.getElementById('result').style.display = 'none';
+
+  // Εμφανίζει την αρχική επιλογή ηλικίας
   document.getElementById('age-select').style.display = 'block';
-  clearInterval(timerInterval);
+
+  // Σταματάει το χρονόμετρο αν υπάρχει
+  if (typeof timerInterval !== 'undefined' && timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
 }
+
 
 function showQuestion() {
   const q = currentQuiz[currentQuestion];
