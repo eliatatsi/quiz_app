@@ -198,27 +198,50 @@ function startQuiz(ageGroup) {
 
 function initFindDifferences() {
   const image = document.getElementById('diff-image');
+  const container = image.parentElement;
 
+  // ΣΗΜΕΙΑ ΣΕ PIXELS, ΣΧΕΤΙΚΑ ΜΕ ΤΟ ΚΕΝΤΡΟ
   const differences = [
-    { x: -43, y: -39 },
+    { x: -43, y: -39 },   // παράδειγμα: αριστερά/πάνω
     { x: 51, y: -28 },
     { x: 46, y: -150 },
     { x: -25, y: -116 },
     { x: 90, y: -86 }
   ];
 
-  const radius = 90; 
+  const radius = 90;  // Μεγάλο, πιο εύκολο
+
   const found = [];
+
+  // ΔΕΙΞΕ ΚΥΚΛΑΚΙΑ ΓΙΑ TEST
+  differences.forEach(diff => {
+    const marker = document.createElement('div');
+    marker.style.position = 'absolute';
+    marker.style.width = '30px';
+    marker.style.height = '30px';
+    marker.style.background = 'rgba(255,0,0,0.4)';
+    marker.style.borderRadius = '50%';
+    marker.style.left = calc(50% + ${diff.x}px);
+    marker.style.top = calc(50% + ${diff.y}px);
+    marker.style.transform = 'translate(-50%, -50%)';
+    marker.style.pointerEvents = 'none';
+    marker.style.zIndex = '10';
+    container.style.position = 'relative';
+    container.appendChild(marker);
+  });
 
   image.addEventListener('click', (e) => {
     const rect = image.getBoundingClientRect();
+    // Μετράει από το κέντρο της εικόνας
     const clickX = e.clientX - rect.left - rect.width / 2;
     const clickY = e.clientY - rect.top - rect.height / 2;
 
     differences.forEach(diff => {
       const dx = clickX - diff.x;
       const dy = clickY - diff.y;
-      if (Math.sqrt(dx * dx + dy * dy) < radius && !found.includes(diff)) {
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < radius && !found.includes(diff)) {
         found.push(diff);
         alert('Μπράβο! Βρήκες μια διαφορά!');
         if (found.length === differences.length) {
@@ -227,27 +250,6 @@ function initFindDifferences() {
       }
     });
   });
-}
-
-
-
-// -----------------------------
-// ΕΜΦΑΝΙΣΗ ΕΡΩΤΗΣΗΣ
-// -----------------------------
-function goBack() {
-  // Κρύβει όλες τις ενότητες που μπορεί να είναι ενεργές
-  document.getElementById('find-differences').style.display = 'none';
-  document.getElementById('quiz').style.display = 'none';
-  document.getElementById('result').style.display = 'none';
-
-  // Εμφανίζει την αρχική επιλογή ηλικίας
-  document.getElementById('age-select').style.display = 'block';
-
-  // Σταματάει το χρονόμετρο αν υπάρχει
-  if (typeof timerInterval !== 'undefined' && timerInterval) {
-    clearInterval(timerInterval);
-    timerInterval = null;
-  }
 }
 
 
