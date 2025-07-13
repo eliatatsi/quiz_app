@@ -195,38 +195,58 @@ function startQuiz(ageGroup) {
 // -----------------------------
 // FIND THE DIFFERENCES GAME
 // -----------------------------
-function initFindDifferences() {
-  const image = document.getElementById('diff-image');
+<img id="diff-image" src="deer-two-images.png" onload="initFindDifferences()" />
+<p id="found-msg"></p>
 
+<script>
+function initFindDifferences () {
+  const img = document.getElementById('diff-image');
+
+  /*  Συντεταγμένες διαφορών ως προς το
+      ΠΑΝΩ‑ΑΡΙΣΤΕΡΟ της ΚΑΤΩ εικόνας  */
   const differences = [
-    { x: -43, y: -39 },
-    { x: 51, y: -28 },
-    { x: 46, y: -150 },
-    { x: -25, y: -116 },
-    { x: 90, y: -86 }
+   (-43, -39),   # 1
+    (51, -28),    # 2
+    (46, -150),   # 3
+    (-25, -116),  # 4
+    (90, -86)     # 5    
   ];
 
-  const radius = 90; 
-  const found = [];
+  const RADIUS = 25;           // εμβαδό «κλικ επιτυχίας» σε px
+  const found  = new Set();    // αποθήκευση ευρυμάτων
 
-  image.addEventListener('click', (e) => {
-    const rect = image.getBoundingClientRect();
-    const clickX = e.clientX - rect.left - rect.width / 2;
-    const clickY = e.clientY - rect.top - rect.height / 2;
+  img.addEventListener('click', (e) => {
+    const rect = img.getBoundingClientRect();
 
-    differences.forEach(diff => {
-      const dx = clickX - diff.x;
-      const dy = clickY - diff.y;
-      if (Math.sqrt(dx * dx + dy * dy) < radius && !found.includes(diff)) {
-        found.push(diff);
+    // Συνολικές συντεταγμένες click μέσα στην εικόνα
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Αν το κλικ είναι στο επάνω μισό, το αγνοούμε
+    if (y < rect.height / 2) return;
+
+    // Συντεταγμένες ως προς την ΚΑΤΩ εικόνα
+    const localX = x;
+    const localY = y - rect.height / 2;
+
+    differences.forEach((diff, idx) => {
+      const dx = localX - diff.x;
+      const dy = localY - diff.y;
+
+      if (!found.has(idx) && Math.hypot(dx, dy) < RADIUS) {
+        found.add(idx);
         alert('Μπράβο! Βρήκες μια διαφορά!');
-        if (found.length === differences.length) {
-          document.getElementById('found-msg').innerText = "🎉 Μπράβο! Τα βρήκες όλα!";
+
+        if (found.size === differences.length) {
+          document.getElementById('found-msg').innerText =
+            '🎉 Μπράβο! Τα βρήκες όλα!';
         }
       }
     });
   });
 }
+</script>
+
 
 // -----------------------------
 // ΕΜΦΑΝΙΣΗ ΕΡΩΤΗΣΗΣ
