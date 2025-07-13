@@ -196,47 +196,33 @@ function startQuiz(ageGroup) {
 // FIND THE DIFFERENCES GAME
 // -----------------------------
 
-function initFindDifferences () {
-  const img = document.getElementById('diff-image');
+function initFindDifferences() {
+  const image = document.getElementById('diff-image');
 
-  /*  Συντεταγμένες διαφορών ως προς το
-      ΠΑΝΩ‑ΑΡΙΣΤΕΡΟ της ΚΑΤΩ εικόνας  */
-const differences = [
-  {x: -43, y: -39},   
-  {x: 51, y: -28},    
-  {x: 46, y: -150},   
-  {x: -25, y: -116},  
-  {x: 90, y: -86}        
-];
+  const differences = [
+    { x: -43, y: -39 },
+    { x: 51, y: -28 },
+    { x: 46, y: -150 },
+    { x: -25, y: -116 },
+    { x: 90, y: -86 }
+  ];
 
-  const RADIUS = 25;           // εμβαδό «κλικ επιτυχίας» σε px
-  const found  = new Set();    // αποθήκευση ευρυμάτων
+  const radius = 90; 
+  const found = [];
 
-  img.addEventListener('click', (e) => {
-    const rect = img.getBoundingClientRect();
+  image.addEventListener('click', (e) => {
+    const rect = image.getBoundingClientRect();
+    const clickX = e.clientX - rect.left - rect.width / 2;
+    const clickY = e.clientY - rect.top - rect.height / 2;
 
-    // Συνολικές συντεταγμένες click μέσα στην εικόνα
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    // Αν το κλικ είναι στο επάνω μισό, το αγνοούμε
-    if (y < rect.height / 2) return;
-
-    // Συντεταγμένες ως προς την ΚΑΤΩ εικόνα
-    const localX = x;
-    const localY = y - rect.height / 2;
-
-    differences.forEach((diff, idx) => {
-      const dx = localX - diff.x;
-      const dy = localY - diff.y;
-
-      if (!found.has(idx) && Math.hypot(dx, dy) < RADIUS) {
-        found.add(idx);
+    differences.forEach(diff => {
+      const dx = clickX - diff.x;
+      const dy = clickY - diff.y;
+      if (Math.sqrt(dx * dx + dy * dy) < radius && !found.includes(diff)) {
+        found.push(diff);
         alert('Μπράβο! Βρήκες μια διαφορά!');
-
-        if (found.size === differences.length) {
-          document.getElementById('found-msg').innerText =
-            '🎉 Μπράβο! Τα βρήκες όλα!';
+        if (found.length === differences.length) {
+          document.getElementById('found-msg').innerText = "🎉 Μπράβο! Τα βρήκες όλα!";
         }
       }
     });
