@@ -213,22 +213,24 @@ function initFindDifferences() {
 
   const found = [];
 
-  // ΔΕΙΞΕ ΚΥΚΛΑΚΙΑ ΓΙΑ TEST
-  differences.forEach(diff => {
-    const marker = document.createElement('div');
-    marker.style.position = 'absolute';
-    marker.style.width = '30px';
-    marker.style.height = '30px';
-    marker.style.background = 'rgba(255,0,0,0.4)';
-    marker.style.borderRadius = '50%';
-    marker.style.left = calc(50% + ${diff.x}px);
-    marker.style.top = calc(50% + ${diff.y}px);
-    marker.style.transform = 'translate(-50%, -50%)';
-    marker.style.pointerEvents = 'none';
-    marker.style.zIndex = '10';
-    container.style.position = 'relative';
-    container.appendChild(marker);
-  });
+// ΔΕΙΞΕ ΚΥΚΛΑΚΙΑ ΓΙΑ TEST
+container.style.position = 'relative';      // καλό είναι να μπει μία φορά, εκτός forEach
+
+differences.forEach(diff => {
+  const marker = document.createElement('div');
+  marker.style.position       = 'absolute';
+  marker.style.width          = '30px';
+  marker.style.height         = '30px';
+  marker.style.background     = 'rgba(255,0,0,0.4)';
+  marker.style.borderRadius   = '50%';
+  marker.style.left           = `calc(50% + ${diff.x}px)`;  // <-- εδώ
+  marker.style.top            = `calc(50% + ${diff.y}px)`;  // <-- κι εδώ
+  marker.style.transform      = 'translate(-50%, -50%)';
+  marker.style.pointerEvents  = 'none';
+  marker.style.zIndex         = '10';
+  container.appendChild(marker);
+});
+
 
   image.addEventListener('click', (e) => {
     const rect = image.getBoundingClientRect();
